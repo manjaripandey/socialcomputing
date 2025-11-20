@@ -1,14 +1,12 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from simulation import run_simulation
-from metrics import compute_stats
 
 app = FastAPI()
 
-# Allow frontend to access backend
+# Enable CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], 
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -16,18 +14,11 @@ app.add_middleware(
 
 @app.get("/")
 def home():
-    return {"message": "Backend is running!"}
+    return {"message": "Backend running"}
 
 @app.post("/simulate")
-def simulate(params: dict):
-    # Call Anushka's simulation
-    timeline = run_simulation(params)
-
-    # Call Arnav's metrics
-    stats = compute_stats(timeline)
-
-    # Return JSON to frontend
+async def simulate(payload: dict):
     return {
-        "timeline": timeline,
-        "stats": stats
+        "status": "success",
+        "received": payload
     }
