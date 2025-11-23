@@ -3,54 +3,93 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>Fake News Spread Simulator</title>
+
+    <!-- Custom styling -->
     <link rel="stylesheet" href="style.css" />
+
+    <!-- vis-network graph library -->
+    <link rel="stylesheet" href="https://unpkg.com/vis-network/styles/vis-network.min.css" />
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
 </head>
 
 <body>
+
     <div id="container">
 
-        <!--left side: graph -->
+        <!-- LEFT SIDE: Graph Area -->
         <div id="graph-section">
             <h2>Network Simulation</h2>
             <div id="graph"></div>
         </div>
 
-        <!--right side: controls + stats-->
+        <!-- RIGHT SIDE: Controls + Interventions + Stats -->
         <div id="controls-section">
 
-            <h2>Controls</h2>
+            <!-- CONTROLS -->
+            <div class="control-block">
+                <h2>Controls</h2>
 
-            <label>Fake Spread Probability (p_fake):</label>
-            <input type="range" id="pFake" min="0" max="1" step="0.01" value="0.4">
-            <span id="pFakeValue">0.4</span>
+                <!-- Fake Spread Slider -->
+                <div class="slider-row">
+                    <label>Fake Spread Probability (p_fake):</label>
+                    <input type="range" id="pFake" min="0" max="1" step="0.01" value="0.4">
+                    <span class="slider-value" id="pFakeValue">0.4</span>
+                </div>
 
-            <label>Real Spread Probability (p_real):</label>
-            <input type="range" id="pReal" min="0" max="1" step="0.01" value="0.2">
-            <span id="pRealValue">0.2</span>
+                <!-- Real Spread Slider -->
+                <div class="slider-row">
+                    <label>Real Spread Probability (p_real):</label>
+                    <input type="range" id="pReal" min="0" max="1" step="0.01" value="0.2">
+                    <span class="slider-value" id="pRealValue">0.2</span>
+                </div>
 
-            <label>Network Size:</label>
-            <input type="number" id="networkSize" min="10" max="200" value="40">
+                <!-- Network Size -->
+                <div class="slider-row">
+                    <label>Network Size:</label>
+                    <input type="number" id="networkSize" min="10" max="200" value="40">
+                </div>
 
-            <br><br>
+                <!-- Buttons -->
+                <div style="margin-top: 15px;">
+                    <button id="startBtn">Start Simulation</button>
+                    <button id="resetBtn">Reset</button>
+                </div>
+            </div>
 
-            <button id="startBtn">Start Simulation</button>
-            <button id="resetBtn">Reset</button>
+            <!-- INTERVENTIONS -->
+            <div class="control-block">
+                <h2>Interventions</h2>
 
-            <h2>Interventions</h2>
-            <label><input type="checkbox" id="factCheckerToggle"> Enable Fact Checker</label><br>
-            <label><input type="checkbox" id="forwardLimitToggle"> Limit Forwards (like WhatsApp)</label>
+                <label>
+                    <input type="checkbox" id="factCheckerToggle">
+                    Enable Fact Checker
+                </label>
+                <br>
 
-            <h2>Stats</h2>
-            <div id="stats">
-                <p><strong>Fake Reach %:</strong> <span id="fakePct">0%</span></p>
-                <p><strong>Real Reach %:</strong> <span id="realPct">0%</span></p>
-                <p><strong>Time Steps:</strong> <span id="steps">0</span></p>
+                <label>
+                    <input type="checkbox" id="forwardLimitToggle">
+                    Limit Forwards (like WhatsApp)
+                </label>
+            </div>
+
+            <!-- STATS -->
+            <div class="control-block">
+                <h2>Stats</h2>
+
+                <div id="stats">
+                    <p><strong>Fake Reach %:</strong> <span id="fakePct">0%</span></p>
+                    <p><strong>Real Reach %:</strong> <span id="realPct">0%</span></p>
+                    <p><strong>Time Steps:</strong> <span id="steps">0</span></p>
+                </div>
             </div>
 
         </div>
     </div>
 
+    <!-- JS -->
     <script src="script.js"></script>
+
 </body>
 </html>
